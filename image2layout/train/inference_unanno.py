@@ -227,7 +227,7 @@ def main(test_cfg: DictConfig) -> None:
         if ckpt_path is not None:
             logger.info(f"Load from {ckpt_path=}")
             with fs_ckpt.open(ckpt_path) as f:
-                model.load_state_dict(torch.load(f, map_location="cpu"))
+                model.load_state_dict(torch.load(f, map_location="cpu", weights_only=False))
             ckpt_name = os.path.basename(ckpt_path).split("_")[1]
         else:
             logger.info("Using retrieval model, no checkpoint is loaded.")

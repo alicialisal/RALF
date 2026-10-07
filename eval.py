@@ -337,7 +337,7 @@ def main() -> None:
     cache_path = f"cache/eval_gt_features/{dataset_name}_FIDNetV3_features.pth"
     if os.path.exists(cache_path):
         logger.info(f"Find the cache in {cache_path} and loading ...")
-        feats_gts: dict[str, dict[str, Tensor]] = torch.load(cache_path)
+        feats_gts: dict[str, dict[str, Tensor]] = torch.load(cache_path, weights_only=False)
     else:
         logger.info(f"Extract layout feat. to {cache_path=}")
         feats_gts = _extract_layout_feautures(

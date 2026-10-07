@@ -141,7 +141,7 @@ def load_fidnet_v3(model: FIDNetV3, ckpt_dir: str) -> FIDNetV3:
 
     logger.info(f"Loading FIDNetV3 ({weight_path=}) ...")
     with fsspec.open(weight_path, "rb") as file_obj:
-        x = torch.load(file_obj, map_location=torch.device("cpu"))
+        x = torch.load(file_obj, map_location=torch.device("cpu"), weights_only=False)
     _ = model.load_state_dict(x["state_dict"])
     model.eval()
     return model

@@ -51,7 +51,7 @@ def load_model(
     else:
         model_path = os.path.join(ckpt_dir, f"{best_or_final}_model.pt")
     with fsspec.open(str(model_path), "rb") as file_obj:
-        model.load_state_dict(torch.load(file_obj, map_location=device))
+        model.load_state_dict(torch.load(file_obj, map_location=device, weights_only=False))
     return model
 
 

@@ -503,7 +503,7 @@ class RelationshipPreprocessor(BasePreprocessor):
             relationship_table_path = f"{PRECOMPUTED_WEIGHT_DIR}/relationship/pku_cgl_relationships_dic_using_canvas_sort_label_lexico.pt"
 
         logger.info(f"Load relationship cache from {relationship_table_path}")
-        self.table: dict[str, list] = torch.load(relationship_table_path)
+        self.table: dict[str, list] = torch.load(relationship_table_path, weights_only=False)
         self.table = {k: random.sample(v, len(v)) for k, v in self.table.items()}
 
         self.label_preprocessor = LabelPreprocessor(

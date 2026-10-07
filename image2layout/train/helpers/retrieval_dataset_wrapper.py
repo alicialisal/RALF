@@ -28,7 +28,7 @@ def load_cache_table(cache_path: str, top_k: int) -> dict[int, list[int]]:
         logger.info(f"Find {cache_path=} and loading ...")
 
     with fs.open(path_prefix, "rb") as f:
-        table_idx: dict[int, list[int]] = torch.load(f)
+        table_idx: dict[int, list[int]] = torch.load(f, weights_only=False)
     table_idx = {k: v[:top_k] for k, v in table_idx.items()}
     return table_idx
 

@@ -162,7 +162,7 @@ class CrossRetriever(BaseModel):
             )
             logger.info(f"Load cache from {cache_table_paired_path=}")
             with fs.open(cache_table_paired_path, "rb") as file_obj:
-                self.table_paired_id_idx[dataset] = torch.load(file_obj)
+                self.table_paired_id_idx[dataset] = torch.load(file_obj, weights_only=False)
 
         if source == "pku":
             backbone = self.backbone_pku

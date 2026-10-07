@@ -151,8 +151,8 @@ def _decode_seq(seq, preprocessor):
 
 if __name__ == "__main__":
 
-    features = torch.load("tmp/features.pt")
-    batch = torch.load("tmp/batch.pt")
+    features = torch.load("tmp/features.pt", weights_only=False)
+    batch = torch.load("tmp/batch.pt", weights_only=False)
     batch = {k: v[:4] for k, v in batch.items()}
 
     train_cfg = OmegaConf.create(

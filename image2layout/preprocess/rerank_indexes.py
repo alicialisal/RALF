@@ -87,8 +87,8 @@ def main(args):
 
     for split in ["train", "val", "test"]:
         indexes_path = f"cache/{args.dataset}_{split}_{args.retrieval_backbone}_wo_head_table_between_dataset_indexes_top_k{args.rerank_pool_size}.pt"
-        table_indexes = torch.load(indexes_path)
-        table_scores = torch.load(indexes_path.replace("indexes", "scores"))
+        table_indexes = torch.load(indexes_path, weights_only=False)
+        table_scores = torch.load(indexes_path.replace("indexes", "scores"), weights_only=False)
 
         if args.rerank_type == "mmr":
             params_str = f"rerank_{args.rerank_type}_lam_{args.rerank_mmr_lam}"

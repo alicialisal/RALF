@@ -92,7 +92,7 @@ class _SaliencyTester:  # type: ignore
         self._ckpt_path: str = ""  # to be overwritten
 
     def setup_model(self, model: nn.Module) -> None:
-        model.load_state_dict(torch.load(self._ckpt_path, map_location="cpu"))
+        model.load_state_dict(torch.load(self._ckpt_path, map_location="cpu", weights_only=False))
         model.eval()
         if torch.cuda.is_available():
             model = model.to(torch.device("cuda"))

@@ -150,7 +150,7 @@ class Retriever(BaseModel):
         fs, path_prefix = fsspec.core.url_to_fs(cache_path)
         # if fs.exists(path_prefix):
         #     logger.info(f"Find the cache in {path_prefix} and loading ...")
-        #     table_idx: dict[int, list[int]] = torch.load(cache_path)
+        #     table_idx: dict[int, list[int]] = torch.load(cache_path, weights_only=False)
         #     return table_idx
         # logger.info(f"Not found cache in {cache_path}")
 
@@ -162,7 +162,7 @@ class Retriever(BaseModel):
         if fs.exists(cache_table_paired_path):
             logger.info(f"Load cache from {cache_table_paired_path=}")
             with fs.open(cache_table_paired_path, "rb") as file_obj:
-                self.table_paired_id_idx = torch.load(file_obj)
+                self.table_paired_id_idx = torch.load(file_obj, weights_only=False)
         else:
             pbar = get_progress(
                 range(len(self.db_dataset)),
@@ -279,7 +279,7 @@ class Retriever(BaseModel):
             f"cache/{self.dataset_name}_train_saliency_cache_table_paired.pt"
         )
         with fs.open(cache_dataid_dbidx_path, "rb") as file_obj:
-            table_dataid_dbidx = torch.load(file_obj)
+            table_dataid_dbidx = torch.load(file_obj, weights_only=False)
             # Key: data_id, Value: db_idx
 
         cache_db_path = f"cache/{dataset_name}_{split}_{self.retrieval_backbone}_{where_norm}__topk{top_k}.pt"

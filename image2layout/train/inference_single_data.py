@@ -191,7 +191,7 @@ def main(test_cfg: DictConfig) -> None:
     elif "cgl" in test_cfg.dataset_path:
         cache_table_path = "cache/dataset/cgl_DATAID_TO_IDX.pt"
 
-    TABLE_DATAID_TO_IDX = torch.load(cache_table_path)[test_cfg.test_split]
+    TABLE_DATAID_TO_IDX = torch.load(cache_table_path, weights_only=False)[test_cfg.test_split]
 
     if test_cfg.sample_id is None or test_cfg.sample_id == "None":
         DATA_ID = "O1CN010wAX8U1i1ilTbsxmg_!!6000000004353-0-yinhe"  # for example
@@ -309,7 +309,7 @@ def main(test_cfg: DictConfig) -> None:
         if ckpt_path is not None:
             logger.info(f"Load from {ckpt_path=}")
             with fs_ckpt.open(ckpt_path) as f:
-                model.load_state_dict(torch.load(f, map_location="cpu"))
+                model.load_state_dict(torch.load(f, map_location="cpu", weights_only=False))
             ckpt_name = os.path.basename(ckpt_path).split("_")[1]
         else:
             logger.info("Using retrieval model, no checkpoint is loaded.")

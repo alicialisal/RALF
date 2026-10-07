@@ -44,7 +44,7 @@ class ResnetBackbone(nn.Module):
                 fs, path_prefix = fsspec.core.url_to_fs(cache_path)
                 assert fs.exists(path_prefix), f"{path_prefix} does not exist"
             with fs.open(path_prefix, "rb") as f:
-                resnet_weight = torch.load(f)
+                resnet_weight = torch.load(f, weights_only=False)
             log = resnet.load_state_dict(resnet_weight)
             ch = [1024, 2048]
         else:
@@ -58,7 +58,7 @@ class ResnetBackbone(nn.Module):
                     path_prefix
                 ), f"{path_prefix} does not exist. Please run 'poetry run gdown --id 1cT_FB6PlcgPysJeYsXJ5rdiy96eF7hSm -O ./cache/PRECOMPUTED_WEIGHT_DIR' to download the weight file."
             with fs.open(path_prefix, "rb") as f:
-                resnet_weight = torch.load(f)
+                resnet_weight = torch.load(f, weights_only=False)
             log = resnet.load_state_dict(resnet_weight)
             ch = [256, 512]
         print(f"Load {backbone}: {log}")
