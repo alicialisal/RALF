@@ -42,13 +42,15 @@ fi
 #    the code, so it is skipped.
 if [ "$1" = "--install" ]; then
     echo "Installing RALF runtime dependencies (torch left untouched)..."
+    # Deliberately avoids downgrading numpy/scipy/protobuf/tensorflow that Kaggle
+    # and Colab preinstall (the code does not import TensorFlow). `>=` never
+    # downgrades an already-newer preinstalled package.
     pip install -q \
         "datasets>=2.13.0" "omegaconf>=2.3.0" "hydra-core>=1.3.2" \
         "einops>=0.6.1" "timm>=0.9.5" "rich>=13.5.2" \
         "faiss-cpu>=1.7.4" "prdc>=0.2" "pytorch-fid>=0.3.0" \
-        "python-json-logger>=2.0.7" "seaborn>=0.12.2" \
-        "opencv-python-headless>=4.8.0.74" "fsspec" \
-        "protobuf<=3.20.3" "multiprocess" "scipy<=1.10.1" "pyyaml>=6.0.1"
+        "python-json-logger>=2.0.7" "seaborn>=0.12.2" "lpips" \
+        "opencv-python-headless>=4.8.0.74" "fsspec" "pyyaml>=6.0.1"
     # dreamsim is only needed if you rebuild the retrieval backbone from scratch
     # (inference of the shipped checkpoints uses the precomputed retrieval indexes):
     # pip install -q dreamsim
